@@ -1,0 +1,32 @@
+A company plans to provide its employees with a bonus.
+Write a solution to create a new column name bonus that contains the doubled values of the salary column.
+The result format is in the following example.
+
+return employees['Bonus'] = [employees["salary"] * 2]
+Problems:
+Can’t assign inside return
+return x = y  or x = 10 ❌
+Python does not allow this.
+
+Wrapped the salary calculation in a list
+[employees["salary"] * 2]
+That creates a list with one element, not a column
+
+assign first, then return.
+employees["bonus"] = employees["salary"] * 2
+return employees
+
+Assignment is a statement, not an expression.
+Expressions → produce a value → can be returned
+Statements → do something → cannot be returned
+
+Common valid ways to add a column
+df["bonus"] = df["salary"] * 2
+df.loc[:, "bonus"] = df["salary"] * 2
+df.assign(bonus=df["salary"] * 2)
+
+
+A1)
+employees['bonus'] =employees["salary"]*2
+    return employees
+
