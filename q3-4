@@ -1,0 +1,127 @@
+Q3)Display the First Three Rows
+Write a solution to display the first 3 rows of this DataFrame.
+
+.shape → attribute (not a method)
+.head() → method
+
+Value → no ()
+Action → ()
+
+       Value:
+Something that already exists
+Stored information
+You can print it immediately
+You do not tell it to do anything
+
+Examples in pandas:
+df.shape        # (rows, cols)
+df.columns      # Index([...])
+df.index        # RangeIndex(...)
+df.dtypes       # data types
+These are values. They’re just sitting there.
+df.shape        # ✅
+df.shape()      # ❌ (trying to “run” a value)
+
+
+        Action:
+Something that does work
+Computes or changes data
+Needs instructions
+Runs when you call it
+Examples in pandas:
+
+df.head(3)
+df.dropna()
+df.fillna(0)
+df.describe()
+These are actions.
+So:
+df.head(3)      # ✅
+df.head      
+
+TL:DR
+“Is this information about the DataFrame, or am I telling it to do something?”
+Information → value → no ()
+Do something → action → ()
+
+Ans:) 
+return employees.head(3)
+return employees.head().iloc[:3]
+Translation:
+“Give me rows at positions 0, 1, 2.”
+
+Wrong: .loc[:3]
+employees.index
+# [5, 7, 9, 11, 13]
+Then:
+.loc[:3]   # label 3 does not exist → fail
+.iloc[:3] # positions 0,1,2 → works
+Use .iloc for row counts
+Use .loc for meaning
+
+4)
+pd.DataFrame(data, columns=[...])   # creation
+df.loc[rows, columns]               # selection
+
+students[...] is column selection only
+When you do: students[...]
+Pandas expects:
+a column name   or a list of column names   or a boolean mask
+
+| Task             | Correct syntax                      |
+| ---------------- | ----------------------------------- |
+| Create DataFrame | `pd.DataFrame(data, columns=[...])` |
+| Filter rows      | `df[df["col"] == value]`            |
+| Select columns   | `df[["c1","c2"]]`                   |
+| Filter + select  | `df.loc[rows, columns]`             |
+
+A1) Wrong: return students.loc["student_id","name","age"]
+return students.loc[students["student_id"] == 101, ["name", "age"]]
+
+A2) Wrong: return students["student_id"] == 101[["name","age"]]
+return students[students["student_id"] == 101][["name", "age"]]     and return students.loc[students.student_id == 101][["name", "age"]]  both are same
+
+students["student_id"] == 101
+This returns a Series of booleans like:
+Copy code
+0     True
+1    False
+2    False
+3    False
+dtype: bool
+That is:
+not a DataFrame
+not filtered data just a mask
+Why the error says “Series”
+Because boolean masks are Series.
+The problem explicitly wants a DataFrame.
+
+1️⃣ Select columns only
+Use this when rows don’t matter.
+df["age"]                  # Series
+df[["name", "age"]]        # DataFrame
+Rule:
+single column → Series
+list of columns → DataFrame
+
+2️⃣ Select rows only
+Use this when columns don’t matter.
+By position
+df.iloc[:3]
+df.iloc[1:5]
+
+By condition
+df[df["age"] > 18]
+
+3️⃣ Select rows AND columns (most important)
+This is the grown-up form. Learn this and stop inventing syntax.
+Label-based
+df.loc[ rows , columns ]
+Example:
+df.loc[df["student_id"] == 101, ["name", "age"]]
+
+Position-based
+df.iloc[ rows , columns ]
+Example:
+df.iloc[:3, [1, 2]]
+
