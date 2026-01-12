@@ -1,0 +1,37 @@
+1)You always have:
+
+Raw data (list, dict, CSV, SQL table, NumPy array)
+Structure definition (columns, dtypes, shape)
+Transformation (filter, map, group, aggregate)
+Output (DataFrame, NumPy array, model input)
+This DataFrame creation method sits at step 2
+
+pd.DataFrame(data, columns=[...])
+
+Data can be:
+
+2D list → rows
+list of dicts → keys become columns
+dict of lists → values become columns
+NumPy array → rows and columns
+CSV/SQL → pandas auto-builds this internally
+
+2)Write a solution to calculate and display the number of rows and columns of players.
+Return the result as an array:
+[number of rows, number of columns]
+
+players is already a DataFrame. Re-wrapping it is pointless.
+.shape is a property, not a function. No parentheses.
+shape is not callable
+
+Correct:                                       Wrong:
+list(players.shape())                          return [players.shape)    # [players.shape]= [(rows, columns)]
+return [players.shape[0], players.shape[1]]
+
+
+Correct: 
+return list(players.shape)
+                                      Wrong: 
+rows,columns=players.shape            rows,columns=players.shape()
+return [rows,columns]                 return [rows,columns] or rows,columns..... [] a must 
+
