@@ -1,0 +1,53 @@
+Case 1: returns DataFrame
+students.rename()
+students.dropna()
+students.drop_duplicates()
+students.sort_values()
+✔ Safe:
+students = students.method()
+
+If RHS returns a DataFrame → assign to df
+If RHS returns a Series → assign to a column
+
+Q7) Drop Missing Data
+A7) subset is necessary for dropping missing data
+return students.dropna(subset=["name"])
+
+Q8) Modify Columns
+Wrong:
+employees=employees[["salary"]]=employees[["salary"]]*2
+return employees
+A8)
+employees[["salary"]]=employees[["salary"]]*2
+return employees 
+
+Q9) Rename Columns
+Wrong: students=students.rename({"id":"student_id","first":"first_name","last":"last_name","age":"age_in_years"},inplace=True)
+       return students
+inplace=True returns None
+students = None
+return students
+
+A9)
+students=students.rename(columns={"id":"student_id","first":"first_name","last":"last_name","age":"age_in_years"})
+return students
+
+A9) using inplace , no reassignment
+students.rename(columns={"id": "student_id","first": "first_name","last": "last_name","age": "age_in_years"}, inplace=True)
+return students
+
+Q10) Change Data Type
+Wrong:students["grade"].astype(int)   # creates converted copy .. Show me this converted version
+      return students                 # returns original unchanged df
+Wrong: students = students["grade"].astype(int)
+students["grade"]          # Series
+.astype(int)               # still a Series
+students = that_series     # DataFrame is gone
+
+A10)
+students["grade"]= students["grade"].astype(int)
+
+Q11) Fill Missing Values
+
+A11)products["quantity"] = products["quantity"].fillna(0)
+    return products
