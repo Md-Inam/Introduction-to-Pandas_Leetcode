@@ -51,3 +51,79 @@ Q11) Fill Missing Values
 
 A11)products["quantity"] = products["quantity"].fillna(0)
     return products
+Q12) Reshape Data: Concatenate
+problem wants
+“The two DataFrames are stacked vertically.”
+
+That phrase has one meaning in pandas.
+pd.concat()
+
+concat:
+keeps all rows
+appends df2 under df1
+does not compare values
+does not care about IDs
+merge → SQL JOIN → columns
+concat → stacking → rows
+
+A12) return pd.concat([df1,df2])
+
+Q13) Reshape Data: Pivot
+✅ concat
+Stacks rows.
+df1
+df2
+↓
+bigger df
+✅ merge
+Joins columns using a key.
+student + marks → student_id
+✅ pivot
+Rotates the table.
+long → wide
+
+1️⃣ index
+Controls rows (vertical)
+2️⃣ columns
+Controls column headers (horizontal)
+3️⃣ values
+Controls cell content
+
+A13) 
+return weather.pivot_table(index="month",columns="city",values="temperature")
+“Each unique value inside city becomes its own column.”
+
+lets you convert:
+row data (long format) into
+matrix data (wide format)
+
+Q14) Melt
+Pivot builds a matrix.
+Melt destroys the matrix.
+converts long format to wide
+
+Instead of:
+“What becomes rows or columns?”
+Melt asks:
+“Which columns should stay fixed, and which ones should collapse?
+
+var_name = “what this column used to be called”
+value_name = “what was in that column”
+
+A14)
+melted = pd.melt(
+    report,
+    id_vars="product",       # keep the product column fixed
+    var_name="quarter",      # column names to a new column
+    value_name="sales"       # values go into this new column
+)
+
+Q15) Method CHaining
+A15)
+df = animals.loc[animals["weight"] > 100,["name", "weight"]]
+
+A15)
+df = animals.loc[:, ["name", "weight"]]
+df = df[df["weight"] > 100]
+
+
