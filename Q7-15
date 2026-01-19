@@ -120,10 +120,17 @@ melted = pd.melt(
 
 Q15) Method CHaining
 A15)
-df = animals.loc[animals["weight"] > 100,["name", "weight"]]
+    df = animals.loc[:, ["name", "weight"]]
+    df = df[df["weight"] > 100].sort_values("weight",ascending=False)
+    return df[["name"]]
+But output is in order
+use .sort_values("weight")     , Order is in Descending order
+
+use .sort_values("weight",ascending=False)
 
 A15)
-df = animals.loc[:, ["name", "weight"]]
-df = df[df["weight"] > 100]
+df=animals.loc[animals["weight"]>100,["name","weight"]]   
+df=df.sort_values("weight",ascending=False)
+return df[["name"]]
 
-
+Sort First,Select Later
